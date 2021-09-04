@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "id": "goosiklib",
+  "version": "${version}",
+
+  "name": "Goosik Lib",
+  "description": "Lib for my mods.",
+  "authors": [
+    "PinkGoosik"
+  ],
+  "contact": {
+    "homepage": "https://github.com/PinkGoosik/artifality",
+    "sources": "https://github.com/PinkGoosik/artifality",
+    "issues": "https://github.com/PinkGoosik/artifality/issues"
+  },
+
+  "license": "MIT",
+  "icon": "assets/goosiklib/icon.png",
+
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "ru.pinkgoosik.goosiklib.GoosikLibMod"
+    ],
+    "client": [
+      "ru.pinkgoosik.goosiklib.GoosikLibMod"
+    ]
+  },
+  "mixins": [
+    "goosiklib.mixins.json"
+  ],
+
+  "depends": {
+    "fabricloader": ">=0.11.3",
+    "fabric": "*",
+    "minecraft": "1.17.x",
+    "java": ">=16"
+  }
+}
