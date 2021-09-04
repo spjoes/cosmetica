@@ -1,12 +1,10 @@
-{
-	"supporters": [
-	{
-		"name": "PinkGoosik",
-		"cosmetic": "plswork"
-	},
-	{
-		"name": "aSomik",
-		"cosmetic": "bruh"
-	}
-	]
-}
+[
+  {
+    "name": "PinkGoosik",
+    "cosmetic": "plswork"
+  },
+  {
+    "name": "aSomik",
+    "cosmetic": "bruh"
+  }
+]
