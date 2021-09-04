@@ -6,7 +6,7 @@ import net.minecraft.client.render.entity.feature.FeatureRenderer;
 import net.minecraft.client.render.entity.feature.FeatureRendererContext;
 import net.minecraft.client.render.entity.model.PlayerEntityModel;
 import net.minecraft.client.util.math.MatrixStack;
-import ru.pinkgoosik.goosiklib.GoosikLibMod;
+import ru.pinkgoosik.goosiklib.client.GoosikLibClient;
 
 public class CosmeticFeatureRenderer extends FeatureRenderer<AbstractClientPlayerEntity, PlayerEntityModel<AbstractClientPlayerEntity>> {
 
@@ -17,8 +17,8 @@ public class CosmeticFeatureRenderer extends FeatureRenderer<AbstractClientPlaye
     @Override
     public void render(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, AbstractClientPlayerEntity player, float limbAngle, float limbDistance, float tickDelta, float animationProgress, float headYaw, float headPitch) {
 
-        if(GoosikLibMod.getPlayerCosmetics() != null && !player.isInvisible()){
-            GoosikLibMod.getPlayerCosmetics().getEntries().forEach(entry -> {
+        if(GoosikLibClient.getPlayerCosmetics() != null && !player.isInvisible()){
+            GoosikLibClient.getPlayerCosmetics().getEntries().forEach(entry -> {
                 if(entry.getPlayerName().equals(player.getName().asString())){
                     //render something here
                 }

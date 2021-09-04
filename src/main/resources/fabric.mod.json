@@ -23,7 +23,7 @@
       "ru.pinkgoosik.goosiklib.GoosikLibMod"
     ],
     "client": [
-      "ru.pinkgoosik.goosiklib.GoosikLibMod"
+      "ru.pinkgoosik.goosiklib.client.GoosikLibClient"
     ]
   },
   "mixins": [

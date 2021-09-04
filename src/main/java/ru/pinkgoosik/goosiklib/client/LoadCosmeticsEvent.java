@@ -13,9 +13,9 @@ public class LoadCosmeticsEvent implements ClientTickEvents.StartTick {
     public void onStartTick(MinecraftClient client) {
         if(client.world != null){
             if (!itsTried){
-                GoosikLibMod.initPlayerCosmetics();
-                if(MinecraftClient.getInstance().player != null && GoosikLibMod.getPlayerCosmetics() != null){
-                    GoosikLibMod.getPlayerCosmetics().getEntries().forEach(playerCosmeticEntry -> MinecraftClient.getInstance().player.sendMessage(new LiteralText("[DEBUG] supporter: " + playerCosmeticEntry.getPlayerName() + ", cosmetic: " + playerCosmeticEntry.getCosmetic()), false));
+                GoosikLibClient.initPlayerCosmetics();
+                if(MinecraftClient.getInstance().player != null && GoosikLibClient.getPlayerCosmetics() != null){
+                    GoosikLibClient.getPlayerCosmetics().getEntries().forEach(playerCosmeticEntry -> MinecraftClient.getInstance().player.sendMessage(new LiteralText("[DEBUG] supporter: " + playerCosmeticEntry.getPlayerName() + ", cosmetic: " + playerCosmeticEntry.getCosmetic()), false));
                 }
                 itsTried = true;
             }
