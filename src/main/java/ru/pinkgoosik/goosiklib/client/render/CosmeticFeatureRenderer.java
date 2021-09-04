@@ -21,7 +21,6 @@ public class CosmeticFeatureRenderer extends FeatureRenderer<AbstractClientPlaye
             GoosikLibMod.getPlayerCosmetics().getEntries().forEach(entry -> {
                 if(entry.getPlayerName().equals(player.getName().asString())){
                     //render something here
-
                 }
             });
         }

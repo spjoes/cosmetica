@@ -5,9 +5,8 @@ import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.rendering.v1.LivingEntityFeatureRendererRegistrationCallback;
 import net.minecraft.client.render.entity.PlayerEntityRenderer;
-import net.minecraft.entity.EntityType;
 import ru.pinkgoosik.goosiklib.client.PlayerCosmetics;
-import ru.pinkgoosik.goosiklib.client.PlayerCosmeticsEvent;
+import ru.pinkgoosik.goosiklib.client.LoadCosmeticsEvent;
 import ru.pinkgoosik.goosiklib.client.render.CosmeticFeatureRenderer;
 
 import java.io.IOException;
@@ -24,10 +23,12 @@ public class GoosikLibMod implements ModInitializer, ClientModInitializer {
     @Override
     public void onInitializeClient() {
         LivingEntityFeatureRendererRegistrationCallback.EVENT.register((entityType, entityRenderer, registrationHelper, context) -> {
-            if(entityType.equals(EntityType.PLAYER))registrationHelper.register(new CosmeticFeatureRenderer((PlayerEntityRenderer)entityRenderer));
+            if(entityRenderer instanceof PlayerEntityRenderer playerEntityRenderer){
+                registrationHelper.register(new CosmeticFeatureRenderer(playerEntityRenderer));
+            }
         });
 
-        ClientTickEvents.START_CLIENT_TICK.register(new PlayerCosmeticsEvent());
+        ClientTickEvents.START_CLIENT_TICK.register(new LoadCosmeticsEvent());
     }
 
     public static void initPlayerCosmetics(){
