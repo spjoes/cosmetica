@@ -14,7 +14,7 @@ public class PlayerCosmetics {
 
     private final ArrayList<PlayerCosmeticEntry> entries = new ArrayList<>();
 
-    String URL_STRING = "https://raw.githubusercontent.com/PinkGoosik/goosik-lib/data/supporters.json";
+    String URL_STRING = "https://gist.githubusercontent.com/PinkGoosik/89699592b0e817f4fb892249304dcfcc/raw";
 
     public PlayerCosmetics() throws IOException {
         URL url = new URL(URL_STRING);
