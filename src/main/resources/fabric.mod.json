@@ -5,9 +5,8 @@
 
   "name": "Goosik Lib",
   "description": "Lib for my mods.",
-  "authors": [
-    "PinkGoosik"
-  ],
+  "authors": ["PinkGoosik"],
+
   "contact": {
     "homepage": "https://github.com/PinkGoosik/artifality",
     "sources": "https://github.com/PinkGoosik/artifality",
@@ -19,16 +18,17 @@
 
   "environment": "*",
   "entrypoints": {
-    "main": [
-      "ru.pinkgoosik.goosiklib.GoosikLibMod"
-    ],
-    "client": [
-      "ru.pinkgoosik.goosiklib.client.GoosikLibClient"
-    ]
+    "main": ["ru.pinkgoosik.goosiklib.GoosikLibMod"],
+    "client": ["ru.pinkgoosik.goosiklib.client.GoosikLibClient"]
   },
-  "mixins": [
-    "goosiklib.mixins.json"
-  ],
+
+  "mixins": ["goosiklib.mixins.json"],
+
+  "custom": {
+    "modmenu": {
+      "badges": ["library"]
+    }
+  },
 
   "depends": {
     "fabricloader": ">=0.11.3",

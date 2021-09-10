@@ -24,27 +24,27 @@ public class CosmeticFeatureRenderer extends FeatureRenderer<AbstractClientPlaye
     @Override
     public void render(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, AbstractClientPlayerEntity player, float limbAngle, float limbDistance, float tickDelta, float animationProgress, float headYaw, float headPitch) {
 
-        if(GoosikLibClient.getPlayerCosmetics() != null && !player.isInvisible()){
-            GoosikLibClient.getPlayerCosmetics().getEntries().forEach(entry -> {
-                if(entry.getPlayerName().equals(player.getName().asString())){
-                    ItemRenderer itemRenderer = MinecraftClient.getInstance().getItemRenderer();
-
-                    matrices.push();
-
-                    matrices.translate(0D, -1D, 0D);
-
-                    matrices.scale(0.5F, 0.5F, 0.5F);
-                    translateToFace(matrices, this.getContextModel(), player, headYaw, headPitch);
-                    matrices.multiply(Vec3f.POSITIVE_X.getDegreesQuaternion(180.0F));
-
-                    String modelId = "goosiklib:flower_wreath#inventory";
-
-                    itemRenderer.renderItem(Items.DIAMOND.getDefaultStack(), ModelTransformation.Mode.FIXED, false, matrices, vertexConsumers, light, OverlayTexture.DEFAULT_UV,
-                            itemRenderer.getModels().getModelManager().getModel(new ModelIdentifier(modelId)));
-                    matrices.pop();
-                }
-            });
-        }
+//        if(GoosikLibClient.getPlayerCosmetics() != null && !player.isInvisible()){
+//            GoosikLibClient.getPlayerCosmetics().getEntries().forEach(entry -> {
+//                if(entry.getPlayerName().equals(player.getName().asString())){
+//                    ItemRenderer itemRenderer = MinecraftClient.getInstance().getItemRenderer();
+//
+//                    matrices.push();
+//
+//                    matrices.translate(0D, -1D, 0D);
+//
+//                    matrices.scale(0.5F, 0.5F, 0.5F);
+//                    translateToFace(matrices, this.getContextModel(), player, headYaw, headPitch);
+//                    matrices.multiply(Vec3f.POSITIVE_X.getDegreesQuaternion(180.0F));
+//
+//                    String modelId = "goosiklib:flower_wreath#inventory";
+//
+//                    itemRenderer.renderItem(Items.DIAMOND.getDefaultStack(), ModelTransformation.Mode.FIXED, false, matrices, vertexConsumers, light, OverlayTexture.DEFAULT_UV,
+//                            itemRenderer.getModels().getModelManager().getModel(new ModelIdentifier(modelId)));
+//                    matrices.pop();
+//                }
+//            });
+//        }
     }
 
     static void translateToFace(MatrixStack matrices, PlayerEntityModel<AbstractClientPlayerEntity> model,
