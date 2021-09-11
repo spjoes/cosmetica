@@ -22,8 +22,8 @@ dependencies {
 	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
 
 	// Fabric API. This is technically optional, but you probably want it anyway.
-	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
-	
+	modImplementation "net.fabricmc.fabric-api:fabric-lifecycle-events-v1:1.4.4+a02b4463d5"
+
 	modRuntime "com.terraformersmc:modmenu:2.0.9"
 	modRuntime "supercoder79:databreaker:0.2.7"
 

@@ -1,19 +1,12 @@
 package ru.pinkgoosik.goosiklib.client.render;
 
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
-import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.feature.FeatureRenderer;
 import net.minecraft.client.render.entity.feature.FeatureRendererContext;
 import net.minecraft.client.render.entity.model.PlayerEntityModel;
-import net.minecraft.client.render.item.ItemRenderer;
-import net.minecraft.client.render.model.json.ModelTransformation;
-import net.minecraft.client.util.ModelIdentifier;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.item.Items;
 import net.minecraft.util.math.Vec3f;
-import ru.pinkgoosik.goosiklib.client.GoosikLibClient;
 
 public class CosmeticFeatureRenderer extends FeatureRenderer<AbstractClientPlayerEntity, PlayerEntityModel<AbstractClientPlayerEntity>> {
 
@@ -23,7 +16,6 @@ public class CosmeticFeatureRenderer extends FeatureRenderer<AbstractClientPlaye
 
     @Override
     public void render(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, AbstractClientPlayerEntity player, float limbAngle, float limbDistance, float tickDelta, float animationProgress, float headYaw, float headPitch) {
-
 //        if(GoosikLibClient.getPlayerCosmetics() != null && !player.isInvisible()){
 //            GoosikLibClient.getPlayerCosmetics().getEntries().forEach(entry -> {
 //                if(entry.getPlayerName().equals(player.getName().asString())){

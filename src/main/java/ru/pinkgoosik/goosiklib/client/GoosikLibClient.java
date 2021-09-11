@@ -1,12 +1,14 @@
 package ru.pinkgoosik.goosiklib.client;
 
 import net.fabricmc.api.ClientModInitializer;
-import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
-import ru.pinkgoosik.goosiklib.GoosikLibMod;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 
 public class GoosikLibClient implements ClientModInitializer {
+
+    public static final Logger LOGGER = LogManager.getLogger("GoosikLib");
 
     private static PlayerCosmetics playerCosmetics;
     private static PlayerCapes playerCapes;
@@ -19,7 +21,8 @@ public class GoosikLibClient implements ClientModInitializer {
 //            }
 //        });
 
-        ClientTickEvents.START_CLIENT_TICK.register(new LoadCosmeticsEvent());
+//        ClientTickEvents.START_CLIENT_TICK.register(new LoadCosmeticsEvent());
+        GoosikLibClient.initPlayerCapes();
     }
 
     public static void initPlayerCosmetics(){
@@ -27,20 +30,21 @@ public class GoosikLibClient implements ClientModInitializer {
             playerCosmetics = new PlayerCosmetics();
         } catch (IOException e) {
             playerCosmetics = null;
-            GoosikLibMod.LOGGER.warn("Failed to load Player Cosmetics due to an exception: " + e);
+            LOGGER.warn("Failed to load Player Cosmetics due to an exception: " + e);
         } finally {
-            if(playerCosmetics != null) GoosikLibMod.LOGGER.info("Player Cosmetics successfully loaded");
+            if(playerCosmetics != null) LOGGER.info("Player Cosmetics successfully loaded");
         }
     }
 
     public static void initPlayerCapes(){
+        LOGGER.info("Loading Player Capes...");
         try {
             playerCapes = new PlayerCapes();
         } catch (IOException e) {
             playerCapes = null;
-            GoosikLibMod.LOGGER.warn("Failed to load Player Capes due to an exception: " + e);
+            LOGGER.warn("Failed to load Player Capes due to an exception: " + e);
         } finally {
-            if(playerCapes != null) GoosikLibMod.LOGGER.info("Player Capes successfully loaded");
+            if(playerCapes != null) LOGGER.info("Player Capes successfully loaded");
         }
     }
 

@@ -16,7 +16,7 @@ public class PlayerCapes {
     private final ArrayList<PlayerCapes.PlayerCapeEntry> entries = new ArrayList<>();
     private final ArrayList<String> currentlyAvailableCapes = new ArrayList<>(List.of("green", "purple", "red"));
 
-    String URL_STRING = "https://gist.githubusercontent.com/PinkGoosik/5b97e65e9b7cce4a7dcef14205b10f24/raw";
+    String URL_STRING = "https://gist.githubusercontent.com/oliviathevampire/19dce3255ce7420b89fb0ab771c93107/raw";
 
     public PlayerCapes() throws IOException {
         URL url = new URL(URL_STRING);
@@ -30,6 +30,16 @@ public class PlayerCapes {
             entry.setPlayerName(jsonElement.getAsJsonObject().get("name").getAsString());
             entry.setPlayerUuid(jsonElement.getAsJsonObject().get("uuid").getAsString());
             entry.setCape(jsonElement.getAsJsonObject().get("cape").getAsString());
+            if (jsonElement.getAsJsonObject().get("type") != null) {
+                entry.setType(jsonElement.getAsJsonObject().get("type").getAsString());
+            } else {
+                entry.setType("normal");
+            }
+            if (jsonElement.getAsJsonObject().get("color") != null) {
+                entry.setColor(jsonElement.getAsJsonObject().get("color").getAsString());
+            } else {
+                entry.setColor("0xFFFFFF");
+            }
             entries.add(entry);
         });
     }
@@ -46,7 +56,9 @@ public class PlayerCapes {
 
         private String name;
         private String uuid;
+        private String type;
         private String cape;
+        private String color;
 
         public String getPlayerName() {
             return name;
@@ -56,8 +68,16 @@ public class PlayerCapes {
             return uuid;
         }
 
+        public String getType() {
+            return type;
+        }
+
         public String getCape() {
             return cape;
+        }
+
+        public String getColor() {
+            return color;
         }
 
         public void setPlayerName(String name) {
@@ -68,8 +88,16 @@ public class PlayerCapes {
             this.uuid = uuid;
         }
 
+        public void setType(String type) {
+            this.type = type;
+        }
+
         public void setCape(String cape) {
             this.cape = cape;
+        }
+
+        public void setColor(String color) {
+            this.color = color;
         }
     }
 }
