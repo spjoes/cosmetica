@@ -54,7 +54,7 @@ public abstract class ElytraLayerMixin<T extends LivingEntity, M extends EntityM
 						if (player.canRenderCapeTexture() && player.getCapeTexture() != null && player.isPartVisible(PlayerModelPart.CAPE)) {
 							for (String type : entry.getType().split("\\|")) {
 								if (type.equals("jeb")) {
-									float[] color = DyeUtils.idk(player, tickDelta);
+									float[] color = DyeUtils.createJebColorTransition(player, tickDelta);
 									this.elytra.render(poseStack, multiBufferSource.getBuffer(RenderLayer.getArmorCutoutNoCull(new Identifier("goosiklib:textures/cape/cape_layer1.png"))), light, OverlayTexture.DEFAULT_UV, 1.0F, 1.0F, 1.0F, 1.0F);
 									this.elytra.render(poseStack, multiBufferSource.getBuffer(RenderLayer.getArmorCutoutNoCull(new Identifier("goosiklib:textures/cape/cape_layer2.png"))), light, OverlayTexture.DEFAULT_UV, color[0], color[1], color[2], 1.0F);
 								}

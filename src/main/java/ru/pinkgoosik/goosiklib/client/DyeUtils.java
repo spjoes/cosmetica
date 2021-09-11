@@ -14,23 +14,23 @@ public class DyeUtils {
 
 	private static float[] createSheepColor(DyeColor color) {
 		if (color == DyeColor.WHITE) {
-			return new float[]{0.9019608F, 0.9019608F, 0.9019608F};
+			return new float[] {0.9019608F, 0.9019608F, 0.9019608F};
 		} else {
 			float[] fs = color.getColorComponents();
 			float f = 0.75F;
-			return new float[]{fs[0] * 0.75F, fs[1] * 0.75F, fs[2] * 0.75F};
+			return new float[] {fs[0] * 0.75F, fs[1] * 0.75F, fs[2] * 0.75F};
 		}
 	}
 
 	public static float[] getColorArray(DyeColor dyeColor) {
-		return (float[]) COLOR_ARRAY_BY_COLOR.get(dyeColor);
+		return COLOR_ARRAY_BY_COLOR.get(dyeColor);
 	}
 
-	public static float[] idk(LivingEntity entity, float tickDelta) {
-		int n = entity.age / 25 + entity.getId();
+	public static float[] createJebColorTransition(LivingEntity entity, float tickDelta) {
+		int agePlusId = entity.age / 25 + entity.getId();
 		int dyeColorsAmount = DyeColor.values().length;
-		int p = n % dyeColorsAmount;
-		int q = (n + 1) % dyeColorsAmount;
+		int p = agePlusId % dyeColorsAmount;
+		int q = (agePlusId + 1) % dyeColorsAmount;
 		float r2 = ((entity.age % 25) + tickDelta) / 25.0F;
 		float[] fs = getColorArray(DyeColor.byId(p));
 		float[] gs = getColorArray(DyeColor.byId(q));

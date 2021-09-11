@@ -26,21 +26,18 @@ public class PlayerCapes {
         JsonParser jsonParser = new JsonParser();
         JsonArray jsonArray = jsonParser.parse(new InputStreamReader((InputStream) request.getContent())).getAsJsonArray();
         jsonArray.forEach(jsonElement -> {
-            PlayerCapes.PlayerCapeEntry entry = new PlayerCapes.PlayerCapeEntry();
-            entry.setPlayerName(jsonElement.getAsJsonObject().get("name").getAsString());
-            entry.setPlayerUuid(jsonElement.getAsJsonObject().get("uuid").getAsString());
-            entry.setCape(jsonElement.getAsJsonObject().get("cape").getAsString());
-            if (jsonElement.getAsJsonObject().get("type") != null) {
-                entry.setType(jsonElement.getAsJsonObject().get("type").getAsString());
-            } else {
-                entry.setType("normal");
-            }
-            if (jsonElement.getAsJsonObject().get("color") != null) {
-                entry.setColor(jsonElement.getAsJsonObject().get("color").getAsString());
-            } else {
-                entry.setColor("0xFFFFFF");
-            }
-            entries.add(entry);
+            PlayerCapeEntry.Builder entry = PlayerCapeEntry.builder()
+                .setPlayerName(jsonElement.getAsJsonObject().get("name").getAsString())
+                .setPlayerUuid(jsonElement.getAsJsonObject().get("uuid").getAsString())
+                .setCape(jsonElement.getAsJsonObject().get("cape").getAsString());
+
+            if (jsonElement.getAsJsonObject().get("type") != null) entry.setType(jsonElement.getAsJsonObject().get("type").getAsString());
+            else entry.setType("normal");
+
+            if (jsonElement.getAsJsonObject().get("color") != null) entry.setColor(jsonElement.getAsJsonObject().get("color").getAsString());
+            else entry.setColor("0xFFFFFF");
+
+            entries.add(entry.build());
         });
     }
 
@@ -52,52 +49,44 @@ public class PlayerCapes {
         return this.currentlyAvailableCapes;
     }
 
-    public static class PlayerCapeEntry {
+    public static record PlayerCapeEntry(String playerName, String playerUuid, String type, String cape, String color) {
 
-        private String name;
-        private String uuid;
-        private String type;
-        private String cape;
-        private String color;
-
-        public String getPlayerName() {
-            return name;
+        public static Builder builder() {
+            return new Builder();
         }
 
-        public String getPlayerUuid() {
-            return uuid;
+        public static class Builder {
+            private String playerName, playerUuid, type, cape, color;
+
+            public Builder setPlayerName(String playerName) {
+                this.playerName = playerName;
+                return this;
+            }
+
+            public Builder setPlayerUuid(String playerUuid) {
+                this.playerUuid = playerUuid;
+                return this;
+            }
+
+            public Builder setType(String type) {
+                this.type = type;
+                return this;
+            }
+
+            public Builder setCape(String cape) {
+                this.cape = cape;
+                return this;
+            }
+
+            public Builder setColor(String color) {
+                this.color = color;
+                return this;
+            }
+
+            public PlayerCapeEntry build() {
+                return new PlayerCapeEntry(playerName, playerUuid, type, cape, color);
+            }
         }
 
-        public String getType() {
-            return type;
-        }
-
-        public String getCape() {
-            return cape;
-        }
-
-        public String getColor() {
-            return color;
-        }
-
-        public void setPlayerName(String name) {
-            this.name = name;
-        }
-
-        public void setPlayerUuid(String uuid) {
-            this.uuid = uuid;
-        }
-
-        public void setType(String type) {
-            this.type = type;
-        }
-
-        public void setCape(String cape) {
-            this.cape = cape;
-        }
-
-        public void setColor(String color) {
-            this.color = color;
-        }
     }
 }

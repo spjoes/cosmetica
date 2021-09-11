@@ -71,7 +71,7 @@ public abstract class CapeLayerMixin extends FeatureRenderer<AbstractClientPlaye
 
 						for (String type : entry.getType().split("\\|")) {
 							if (type.equals("jeb")) {
-								float[] color = DyeUtils.idk(abstractClientPlayer, tickDelta);
+								float[] color = DyeUtils.createJebColorTransition(abstractClientPlayer, tickDelta);
 								this.getContextModel().renderCape(poseStack, vertexConsumerProvider.getBuffer(RenderLayer.getArmorCutoutNoCull(new Identifier("goosiklib:textures/cape/cape_layer1.png"))), light, OverlayTexture.DEFAULT_UV);
 								((PlayerEntityModelAccessor) this.getContextModel()).getCloak().render(poseStack, vertexConsumerProvider.getBuffer(RenderLayer.getArmorCutoutNoCull(new Identifier("goosiklib:textures/cape/cape_layer2.png"))), light, OverlayTexture.DEFAULT_UV, color[0], color[1], color[2], 1.0F);
 							}
