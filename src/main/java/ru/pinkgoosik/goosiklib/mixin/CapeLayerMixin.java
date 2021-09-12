@@ -71,25 +71,22 @@ public abstract class CapeLayerMixin extends FeatureRenderer<AbstractClientPlaye
 						for (String type : entry.type().split("\\|")) {
 							if (type.equals("jeb")) {
 								float[] color = DyeUtils.createJebColorTransition(abstractClientPlayer, tickDelta);
-								this.getContextModel().renderCape(poseStack, vertexConsumerProvider.getBuffer(RenderLayer.getArmorCutoutNoCull(new Identifier("goosiklib:textures/cape/cape_layer1.png"))), light, OverlayTexture.DEFAULT_UV);
-								((PlayerEntityModelAccessor) this.getContextModel()).getCloak().render(poseStack, vertexConsumerProvider.getBuffer(RenderLayer.getArmorCutoutNoCull(new Identifier("goosiklib:textures/cape/cape_layer2.png"))), light, OverlayTexture.DEFAULT_UV, color[0], color[1], color[2], 1.0F);
-							}
-							if (type.equals("enchanted")) {
-								((PlayerEntityModelAccessor) this.getContextModel()).getCloak().render(poseStack, ItemRenderer.getArmorGlintConsumer(vertexConsumerProvider, RenderLayer.getDirectEntityGlint(), false, true), light, OverlayTexture.DEFAULT_UV);
+								this.getContextModel().renderCape(poseStack, ItemRenderer.getArmorGlintConsumer(vertexConsumerProvider, RenderLayer.getArmorCutoutNoCull(new Identifier("goosiklib:textures/cape/cape_layer1.png")), false, entry.type().contains("enchanted")), light, OverlayTexture.DEFAULT_UV);
+								((PlayerEntityModelAccessor) this.getContextModel()).getCloak().render(poseStack, ItemRenderer.getArmorGlintConsumer(vertexConsumerProvider, RenderLayer.getArmorCutoutNoCull(new Identifier("goosiklib:textures/cape/cape_layer2.png")), false, entry.type().contains("enchanted")), light, OverlayTexture.DEFAULT_UV, color[0], color[1], color[2], 1.0F);
 							}
 							if (type.equals("cosmic")) {
-								((PlayerEntityModelAccessor) this.getContextModel()).getCloak().render(poseStack, vertexConsumerProvider.getBuffer(RenderLayer.getEndGateway()), light, OverlayTexture.DEFAULT_UV);
+								((PlayerEntityModelAccessor) this.getContextModel()).getCloak().render(poseStack, ItemRenderer.getArmorGlintConsumer(vertexConsumerProvider, RenderLayer.getEndGateway(), false, entry.type().contains("enchanted")), light, OverlayTexture.DEFAULT_UV);
 							}
 							if (type.equals("swirly")) {
 								float f = abstractClientPlayer.age + tickDelta;
-								((PlayerEntityModelAccessor) this.getContextModel()).getCloak().render(poseStack, vertexConsumerProvider.getBuffer(RenderLayer.getEnergySwirl(new Identifier("textures/entity/creeper/creeper_armor.png"), f * 0.01F % 1.0F, f * 0.01F % 1.0F)), light, OverlayTexture.DEFAULT_UV);
+								((PlayerEntityModelAccessor) this.getContextModel()).getCloak().render(poseStack, ItemRenderer.getArmorGlintConsumer(vertexConsumerProvider, RenderLayer.getEnergySwirl(new Identifier("textures/entity/creeper/creeper_armor.png"), f * 0.01F % 1.0F, f * 0.01F % 1.0F), false, entry.type().contains("enchanted")), light, OverlayTexture.DEFAULT_UV);
 							}
 							if (type.equals("glowing")) {
 								float[] color = ColorUtil.toFloatArray(ColorUtil.color(entry.color().replace("0x", "")));
-								((PlayerEntityModelAccessor) this.getContextModel()).getCloak().render(poseStack, vertexConsumerProvider.getBuffer(RenderLayer.getLightning()), light, OverlayTexture.DEFAULT_UV, color[0], color[1], color[2], color[3]);
+								((PlayerEntityModelAccessor) this.getContextModel()).getCloak().render(poseStack, ItemRenderer.getArmorGlintConsumer(vertexConsumerProvider, RenderLayer.getLightning(), false, entry.type().contains("enchanted")), light, OverlayTexture.DEFAULT_UV, color[0], color[1], color[2], color[3]);
 							}
 							if (type.equals("normal")) {
-								((PlayerEntityModelAccessor) this.getContextModel()).getCloak().render(poseStack, vertexConsumerProvider.getBuffer(RenderLayer.getArmorCutoutNoCull(abstractClientPlayer.getCapeTexture())), light, OverlayTexture.DEFAULT_UV);
+								((PlayerEntityModelAccessor) this.getContextModel()).getCloak().render(poseStack, ItemRenderer.getArmorGlintConsumer(vertexConsumerProvider, RenderLayer.getArmorCutoutNoCull(abstractClientPlayer.getCapeTexture()), false, entry.type().contains("enchanted")), light, OverlayTexture.DEFAULT_UV);
 							}
 						}
 						poseStack.pop();

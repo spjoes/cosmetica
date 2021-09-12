@@ -54,25 +54,22 @@ public abstract class ElytraLayerMixin<T extends LivingEntity, M extends EntityM
 							for (String type : entry.type().split("\\|")) {
 								if (type.equals("jeb")) {
 									float[] color = DyeUtils.createJebColorTransition(player, tickDelta);
-									this.elytra.render(poseStack, multiBufferSource.getBuffer(RenderLayer.getArmorCutoutNoCull(new Identifier("goosiklib:textures/cape/cape_layer1.png"))), light, OverlayTexture.DEFAULT_UV, 1.0F, 1.0F, 1.0F, 1.0F);
-									this.elytra.render(poseStack, multiBufferSource.getBuffer(RenderLayer.getArmorCutoutNoCull(new Identifier("goosiklib:textures/cape/cape_layer2.png"))), light, OverlayTexture.DEFAULT_UV, color[0], color[1], color[2], 1.0F);
-								}
-								if (type.equals("enchanted")) {
-									this.elytra.render(poseStack, ItemRenderer.getArmorGlintConsumer(multiBufferSource, RenderLayer.getArmorEntityGlint(), false, true), light, OverlayTexture.DEFAULT_UV, 1.0F, 1.0F, 1.0F, 1.0F);
+									this.elytra.render(poseStack, ItemRenderer.getArmorGlintConsumer(multiBufferSource, RenderLayer.getArmorCutoutNoCull(new Identifier("goosiklib:textures/cape/cape_layer1.png")), false, itemStack.hasGlint() || entry.type().contains("enchanted")), light, OverlayTexture.DEFAULT_UV, 1.0F, 1.0F, 1.0F, 1.0F);
+									this.elytra.render(poseStack, ItemRenderer.getArmorGlintConsumer(multiBufferSource, RenderLayer.getArmorCutoutNoCull(new Identifier("goosiklib:textures/cape/cape_layer2.png")), false, itemStack.hasGlint() || entry.type().contains("enchanted")), light, OverlayTexture.DEFAULT_UV, color[0], color[1], color[2], 1.0F);
 								}
 								if (type.equals("cosmic")) {
-									this.elytra.render(poseStack, multiBufferSource.getBuffer(RenderLayer.getEndGateway()), light, OverlayTexture.DEFAULT_UV, 1.0F, 1.0F, 1.0F, 1.0F);
+									this.elytra.render(poseStack, ItemRenderer.getArmorGlintConsumer(multiBufferSource, RenderLayer.getEndGateway(), false, itemStack.hasGlint() || entry.type().contains("enchanted")), light, OverlayTexture.DEFAULT_UV, 1.0F, 1.0F, 1.0F, 1.0F);
 								}
 								if (type.equals("swirly")) {
 									float f = player.age + tickDelta;
-									this.elytra.render(poseStack, multiBufferSource.getBuffer(RenderLayer.getEnergySwirl(new Identifier("textures/entity/creeper/creeper_armor.png"), f * 0.01F % 1.0F, f * 0.01F % 1.0F)), light, OverlayTexture.DEFAULT_UV, 1.0F, 1.0F, 1.0F, 1.0F);
+									this.elytra.render(poseStack, ItemRenderer.getArmorGlintConsumer(multiBufferSource, RenderLayer.getEnergySwirl(new Identifier("textures/entity/creeper/creeper_armor.png"), f * 0.01F % 1.0F, f * 0.01F % 1.0F), false, itemStack.hasGlint() || entry.type().contains("enchanted")), light, OverlayTexture.DEFAULT_UV, 1.0F, 1.0F, 1.0F, 1.0F);
 								}
 								if (type.equals("glowing")) {
 									float[] color = ColorUtil.toFloatArray(ColorUtil.color(entry.color().replace("0x", "")));
-									this.elytra.render(poseStack, multiBufferSource.getBuffer(RenderLayer.getLightning()), light, OverlayTexture.DEFAULT_UV, color[0], color[1], color[2], color[3]);
+									this.elytra.render(poseStack, ItemRenderer.getArmorGlintConsumer(multiBufferSource, RenderLayer.getLightning(), false, itemStack.hasGlint() || entry.type().contains("enchanted")), light, OverlayTexture.DEFAULT_UV, color[0], color[1], color[2], color[3]);
 								}
 								if (type.equals("normal")) {
-									this.elytra.render(poseStack, multiBufferSource.getBuffer(RenderLayer.getArmorCutoutNoCull(player.getCapeTexture())), light, OverlayTexture.DEFAULT_UV, 1.0F, 1.0F, 1.0F, 1.0F);
+									this.elytra.render(poseStack, ItemRenderer.getArmorGlintConsumer(multiBufferSource, RenderLayer.getArmorCutoutNoCull(player.getCapeTexture()), false, itemStack.hasGlint() || entry.type().contains("enchanted")), light, OverlayTexture.DEFAULT_UV, 1.0F, 1.0F, 1.0F, 1.0F);
 								}
 							}
 						}

@@ -1,6 +1,7 @@
 package ru.pinkgoosik.goosiklib.client;
 
 import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.minecraft.client.render.entity.PlayerEntityRenderer;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -10,7 +11,6 @@ import net.fabricmc.fabric.api.client.rendering.v1.LivingEntityFeatureRendererRe
 import java.io.IOException;
 
 public class GoosikLibClient implements ClientModInitializer {
-
 	public static final Logger LOGGER = LogManager.getLogger("GoosikLib");
 
 	private static PlayerCapes playerCapes;
