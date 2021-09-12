@@ -42,8 +42,7 @@ public abstract class ElytraLayerMixin<T extends LivingEntity, M extends EntityM
 	public void render(MatrixStack poseStack, VertexConsumerProvider multiBufferSource, int light, T livingEntity, float limbAngle, float limbDistance, float tickDelta, float animationProgress, float headYaw, float headPitch, CallbackInfo info) {
 		if (livingEntity instanceof AbstractClientPlayerEntity player) {
 			for (PlayerCapes.PlayerCapeEntry entry : GoosikLibClient.getPlayerCapes().getEntries()) {
-				if (entry.getPlayerUuid().equals(player.getGameProfile().getId().toString())) {
-					info.cancel();
+				if (entry.playerUuid().equals(player.getGameProfile().getId().toString())) {
 					ItemStack itemStack = livingEntity.getEquippedStack(EquipmentSlot.CHEST);
 					if (itemStack.getItem() instanceof ElytraItem) {
 						poseStack.push();
@@ -52,7 +51,7 @@ public abstract class ElytraLayerMixin<T extends LivingEntity, M extends EntityM
 						this.elytra.setAngles(livingEntity, limbAngle, limbDistance, animationProgress, headYaw, headPitch);
 
 						if (player.canRenderCapeTexture() && player.getCapeTexture() != null && player.isPartVisible(PlayerModelPart.CAPE)) {
-							for (String type : entry.getType().split("\\|")) {
+							for (String type : entry.type().split("\\|")) {
 								if (type.equals("jeb")) {
 									float[] color = DyeUtils.createJebColorTransition(player, tickDelta);
 									this.elytra.render(poseStack, multiBufferSource.getBuffer(RenderLayer.getArmorCutoutNoCull(new Identifier("goosiklib:textures/cape/cape_layer1.png"))), light, OverlayTexture.DEFAULT_UV, 1.0F, 1.0F, 1.0F, 1.0F);
@@ -69,7 +68,7 @@ public abstract class ElytraLayerMixin<T extends LivingEntity, M extends EntityM
 									this.elytra.render(poseStack, multiBufferSource.getBuffer(RenderLayer.getEnergySwirl(new Identifier("textures/entity/creeper/creeper_armor.png"), f * 0.01F % 1.0F, f * 0.01F % 1.0F)), light, OverlayTexture.DEFAULT_UV, 1.0F, 1.0F, 1.0F, 1.0F);
 								}
 								if (type.equals("glowing")) {
-									float[] color = ColorUtil.toFloatArray(ColorUtil.color(entry.getColor().replace("0x", "")));
+									float[] color = ColorUtil.toFloatArray(ColorUtil.color(entry.color().replace("0x", "")));
 									this.elytra.render(poseStack, multiBufferSource.getBuffer(RenderLayer.getLightning()), light, OverlayTexture.DEFAULT_UV, color[0], color[1], color[2], color[3]);
 								}
 								if (type.equals("normal")) {
@@ -77,10 +76,11 @@ public abstract class ElytraLayerMixin<T extends LivingEntity, M extends EntityM
 								}
 							}
 						}
+						poseStack.pop();
 					}
+					info.cancel();
 				}
 			}
-			poseStack.pop();
 		}
 	}
 }

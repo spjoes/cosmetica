@@ -37,8 +37,7 @@ public abstract class CapeLayerMixin extends FeatureRenderer<AbstractClientPlaye
 	public void render(MatrixStack poseStack, VertexConsumerProvider vertexConsumerProvider, int light, AbstractClientPlayerEntity abstractClientPlayer, float limbAngle, float limbDistance, float tickDelta, float animationProgress, float headYaw, float headPitch, CallbackInfo info) {
 		if (abstractClientPlayer.canRenderCapeTexture() && !abstractClientPlayer.isInvisible() && abstractClientPlayer.isPartVisible(PlayerModelPart.CAPE) && abstractClientPlayer.getCapeTexture() != null) {
 			for (PlayerCapes.PlayerCapeEntry entry : GoosikLibClient.getPlayerCapes().getEntries()) {
-				if (entry.getPlayerUuid().equals(abstractClientPlayer.getGameProfile().getId().toString())) {
-					info.cancel();
+				if (entry.playerUuid().equals(abstractClientPlayer.getGameProfile().getId().toString())) {
 					ItemStack itemStack = abstractClientPlayer.getEquippedStack(EquipmentSlot.CHEST);
 					if (!(itemStack.getItem() instanceof ElytraItem)) {
 						poseStack.push();
@@ -69,7 +68,7 @@ public abstract class CapeLayerMixin extends FeatureRenderer<AbstractClientPlaye
 						poseStack.multiply(Vec3f.POSITIVE_Z.getDegreesQuaternion(something1 / 2.0F));
 						poseStack.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion(180.0F - something1 / 2.0F));
 
-						for (String type : entry.getType().split("\\|")) {
+						for (String type : entry.type().split("\\|")) {
 							if (type.equals("jeb")) {
 								float[] color = DyeUtils.createJebColorTransition(abstractClientPlayer, tickDelta);
 								this.getContextModel().renderCape(poseStack, vertexConsumerProvider.getBuffer(RenderLayer.getArmorCutoutNoCull(new Identifier("goosiklib:textures/cape/cape_layer1.png"))), light, OverlayTexture.DEFAULT_UV);
@@ -86,7 +85,7 @@ public abstract class CapeLayerMixin extends FeatureRenderer<AbstractClientPlaye
 								((PlayerEntityModelAccessor) this.getContextModel()).getCloak().render(poseStack, vertexConsumerProvider.getBuffer(RenderLayer.getEnergySwirl(new Identifier("textures/entity/creeper/creeper_armor.png"), f * 0.01F % 1.0F, f * 0.01F % 1.0F)), light, OverlayTexture.DEFAULT_UV);
 							}
 							if (type.equals("glowing")) {
-								float[] color = ColorUtil.toFloatArray(ColorUtil.color(entry.getColor().replace("0x", "")));
+								float[] color = ColorUtil.toFloatArray(ColorUtil.color(entry.color().replace("0x", "")));
 								((PlayerEntityModelAccessor) this.getContextModel()).getCloak().render(poseStack, vertexConsumerProvider.getBuffer(RenderLayer.getLightning()), light, OverlayTexture.DEFAULT_UV, color[0], color[1], color[2], color[3]);
 							}
 							if (type.equals("normal")) {
@@ -95,6 +94,7 @@ public abstract class CapeLayerMixin extends FeatureRenderer<AbstractClientPlaye
 						}
 						poseStack.pop();
 					}
+					info.cancel();
 				}
 			}
 		}
