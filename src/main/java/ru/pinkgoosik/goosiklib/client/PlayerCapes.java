@@ -13,63 +13,82 @@ import java.util.List;
 
 public class PlayerCapes {
 
-    private final ArrayList<PlayerCapes.PlayerCapeEntry> entries = new ArrayList<>();
-    private final ArrayList<String> currentlyAvailableCapes = new ArrayList<>(List.of("green", "purple", "red"));
+	private final ArrayList<PlayerCapes.PlayerCapeEntry> entries = new ArrayList<>();
+	private final ArrayList<String> currentlyAvailableCapes = new ArrayList<>(List.of("light_green", "purple", "red", "blue", "brown", "pink", "green", "light_blue"));
 
-    String URL_STRING = "https://gist.githubusercontent.com/PinkGoosik/5b97e65e9b7cce4a7dcef14205b10f24/raw";
+	String URL_STRING = "https://gist.githubusercontent.com/oliviathevampire/19dce3255ce7420b89fb0ab771c93107/raw";
 
-    public PlayerCapes() throws IOException {
-        URL url = new URL(URL_STRING);
-        URLConnection request = url.openConnection();
-        request.connect();
+	public PlayerCapes() throws IOException {
+		URL url = new URL(URL_STRING);
+		URLConnection request = url.openConnection();
+		request.connect();
 
-        JsonParser jsonParser = new JsonParser();
-        JsonArray jsonArray = jsonParser.parse(new InputStreamReader((InputStream) request.getContent())).getAsJsonArray();
-        jsonArray.forEach(jsonElement -> {
-            PlayerCapes.PlayerCapeEntry entry = new PlayerCapes.PlayerCapeEntry();
-            entry.setPlayerName(jsonElement.getAsJsonObject().get("name").getAsString());
-            entry.setPlayerUuid(jsonElement.getAsJsonObject().get("uuid").getAsString());
-            entry.setCape(jsonElement.getAsJsonObject().get("cape").getAsString());
-            entries.add(entry);
-        });
-    }
+		JsonParser jsonParser = new JsonParser();
+		JsonArray jsonArray = jsonParser.parse(new InputStreamReader((InputStream) request.getContent())).getAsJsonArray();
+		jsonArray.forEach(jsonElement -> {
+			PlayerCapeEntry.Builder entry = PlayerCapeEntry.builder()
+					.setPlayerName(jsonElement.getAsJsonObject().get("name").getAsString())
+					.setPlayerUuid(jsonElement.getAsJsonObject().get("uuid").getAsString())
+					.setCape(jsonElement.getAsJsonObject().get("cape").getAsString());
 
-    public ArrayList<PlayerCapes.PlayerCapeEntry> getEntries(){
-        return this.entries;
-    }
+			if (jsonElement.getAsJsonObject().get("type") != null)
+				entry.setType(jsonElement.getAsJsonObject().get("type").getAsString());
+			else entry.setType("normal");
 
-    public ArrayList<String> getAvailableCapes(){
-        return this.currentlyAvailableCapes;
-    }
+			if (jsonElement.getAsJsonObject().get("color") != null)
+				entry.setColor(jsonElement.getAsJsonObject().get("color").getAsString());
+			else entry.setColor("0xFFFFFF");
 
-    public static class PlayerCapeEntry {
+			entries.add(entry.build());
+		});
+	}
 
-        private String name;
-        private String uuid;
-        private String cape;
+	public ArrayList<PlayerCapes.PlayerCapeEntry> getEntries() {
+		return this.entries;
+	}
 
-        public String getPlayerName() {
-            return name;
-        }
+	public ArrayList<String> getAvailableCapes() {
+		return this.currentlyAvailableCapes;
+	}
 
-        public String getPlayerUuid() {
-            return uuid;
-        }
+	public static record PlayerCapeEntry(String playerName, String playerUuid, String type, String cape, String color) {
 
-        public String getCape() {
-            return cape;
-        }
+		public static Builder builder() {
+			return new Builder();
+		}
 
-        public void setPlayerName(String name) {
-            this.name = name;
-        }
+		public static class Builder {
+			private String playerName, playerUuid, type, cape, color;
 
-        public void setPlayerUuid(String uuid) {
-            this.uuid = uuid;
-        }
+			public Builder setPlayerName(String playerName) {
+				this.playerName = playerName;
+				return this;
+			}
 
-        public void setCape(String cape) {
-            this.cape = cape;
-        }
-    }
+			public Builder setPlayerUuid(String playerUuid) {
+				this.playerUuid = playerUuid;
+				return this;
+			}
+
+			public Builder setType(String type) {
+				this.type = type;
+				return this;
+			}
+
+			public Builder setCape(String cape) {
+				this.cape = cape;
+				return this;
+			}
+
+			public Builder setColor(String color) {
+				this.color = color;
+				return this;
+			}
+
+			public PlayerCapeEntry build() {
+				return new PlayerCapeEntry(playerName, playerUuid, type, cape, color);
+			}
+		}
+
+	}
 }

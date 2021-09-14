@@ -14,7 +14,7 @@ public class PlayerCosmetics {
 
     private final ArrayList<PlayerCosmeticEntry> entries = new ArrayList<>();
 
-    String URL_STRING = "https://gist.githubusercontent.com/PinkGoosik/89699592b0e817f4fb892249304dcfcc/raw";
+    String URL_STRING = "https://gist.github.com/oliviathevampire/ac530435d47dab1817d6a0b2ae132a3c/raw";
 
     public PlayerCosmetics() throws IOException {
         URL url = new URL(URL_STRING);
@@ -24,10 +24,12 @@ public class PlayerCosmetics {
         JsonParser jsonParser = new JsonParser();
         JsonArray jsonArray = jsonParser.parse(new InputStreamReader((InputStream) request.getContent())).getAsJsonArray();
         jsonArray.forEach(jsonElement -> {
-            PlayerCosmeticEntry entry = new PlayerCosmeticEntry();
-            entry.setPlayerName(jsonElement.getAsJsonObject().get("name").getAsString());
-            entry.setCosmetic(jsonElement.getAsJsonObject().get("cosmetic").getAsString());
-            entries.add(entry);
+            PlayerCosmeticEntry.Builder entry = PlayerCosmeticEntry.builder()
+                .setPlayerName(jsonElement.getAsJsonObject().get("name").getAsString())
+                .setPlayerUuid(jsonElement.getAsJsonObject().get("uuid").getAsString())
+                .setCosmetic(jsonElement.getAsJsonObject().get("cosmetic").getAsString())
+                .setPlacement(jsonElement.getAsJsonObject().get("placement").getAsString());
+            entries.add(entry.build());
         });
     }
 
@@ -35,25 +37,39 @@ public class PlayerCosmetics {
         return this.entries;
     }
 
-    public static class PlayerCosmeticEntry {
+    public static record PlayerCosmeticEntry(String playerName, String playerUuid, String cosmetic, String placement) {
 
-        private String playerName;
-        private String cosmetic;
-
-        public String getPlayerName() {
-            return playerName;
+        public static PlayerCosmeticEntry.Builder builder() {
+            return new PlayerCosmeticEntry.Builder();
         }
 
-        public String getCosmetic() {
-            return cosmetic;
+        public static class Builder {
+            private String playerName, playerUuid, cosmetic, placement;
+
+            public PlayerCosmeticEntry.Builder setPlayerName(String playerName) {
+                this.playerName = playerName;
+                return this;
+            }
+
+            public PlayerCosmeticEntry.Builder setPlayerUuid(String playerUuid) {
+                this.playerUuid = playerUuid;
+                return this;
+            }
+
+            public PlayerCosmeticEntry.Builder setCosmetic(String cosmetic) {
+                this.cosmetic = cosmetic;
+                return this;
+            }
+
+            public PlayerCosmeticEntry.Builder setPlacement(String placement) {
+                this.placement = placement;
+                return this;
+            }
+
+            public PlayerCosmeticEntry build() {
+                return new PlayerCosmeticEntry(playerName, playerUuid, cosmetic, placement);
+            }
         }
 
-        public void setPlayerName(String name) {
-            this.playerName = name;
-        }
-
-        public void setCosmetic(String cosmetic) {
-            this.cosmetic = cosmetic;
-        }
     }
 }

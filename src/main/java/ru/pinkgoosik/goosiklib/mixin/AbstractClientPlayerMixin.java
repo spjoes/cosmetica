@@ -20,42 +20,42 @@ import java.util.UUID;
 @Mixin(AbstractClientPlayerEntity.class)
 public abstract class AbstractClientPlayerMixin extends PlayerEntity {
 
-    public AbstractClientPlayerMixin(World world, BlockPos pos, float yaw, GameProfile profile) {
-        super(world, pos, yaw, profile);
-    }
+	public AbstractClientPlayerMixin(World world, BlockPos pos, float yaw, GameProfile profile) {
+		super(world, pos, yaw, profile);
+	}
 
-    @Inject(method = "getCapeTexture", at = @At("HEAD"), cancellable = true)
-    void getCapeTexture(CallbackInfoReturnable<Identifier> cir){
-        PlayerCapes capes = GoosikLibClient.getPlayerCapes();
-        String capeId = "goosiklib:textures/cape/type.png";
+	@Inject(method = "getCapeTexture", at = @At("HEAD"), cancellable = true)
+	void getCapeTexture(CallbackInfoReturnable<Identifier> cir) {
+		PlayerCapes capes = GoosikLibClient.getPlayerCapes();
+		String capeId = "goosiklib:textures/cape/type.png";
 
-        if(capes != null){
-            capes.getEntries().forEach(entry -> {
-                if(!entry.getPlayerUuid().equals("-") && this.getUuid().equals(UUID.fromString(entry.getPlayerUuid()))){
-                    if(entry.getCape().equals("uni")){
-                        cir.setReturnValue(new Identifier(getUniCapeType()));
-                    }else if(capes.getAvailableCapes().contains(entry.getCape())){
-                        cir.setReturnValue(new Identifier(capeId.replaceAll("type", entry.getCape())));
-                    }
-                }else if(this.getName().asString().equals(entry.getPlayerName())){
-                    if(entry.getCape().equals("uni")){
-                        cir.setReturnValue(new Identifier(getUniCapeType()));
-                    }else if(capes.getAvailableCapes().contains(entry.getCape())){
-                        cir.setReturnValue(new Identifier(capeId.replaceAll("type", entry.getCape())));
-                    }
-                }
-            });
-        }
-    }
+		if (capes != null) {
+			capes.getEntries().forEach(entry -> {
+				if (!entry.playerUuid().equals("-") && this.getUuid().equals(UUID.fromString(entry.playerUuid()))) {
+					if (entry.cape().equals("uni")) {
+						cir.setReturnValue(new Identifier(getUniCapeType()));
+					} else if (capes.getAvailableCapes().contains(entry.cape())) {
+						cir.setReturnValue(new Identifier(capeId.replaceAll("type", entry.cape())));
+					}
+				} else if (this.getName().asString().equals(entry.playerName())) {
+					if (entry.cape().equals("uni")) {
+						cir.setReturnValue(new Identifier(getUniCapeType()));
+					} else if (capes.getAvailableCapes().contains(entry.cape())) {
+						cir.setReturnValue(new Identifier(capeId.replaceAll("type", entry.cape())));
+					}
+				}
+			});
+		}
+	}
 
-    @Unique
-    private String getUniCapeType(){
-        String capeId = "goosiklib:textures/cape/type.png";
-        RegistryKey<World> worldKey = this.world.getRegistryKey();
-        if(worldKey.equals(World.OVERWORLD))capeId = capeId.replaceAll("type", "green");
-        else if(worldKey.equals(World.NETHER))capeId = capeId.replaceAll("type", "red");
-        else if(worldKey.equals(World.END))capeId = capeId.replaceAll("type", "purple");
-        else capeId = capeId.replaceAll("type", "green");
-        return capeId;
-    }
+	@Unique
+	private String getUniCapeType() {
+		String capeId = "goosiklib:textures/cape/type.png";
+		RegistryKey<World> worldKey = this.world.getRegistryKey();
+		if (worldKey.equals(World.OVERWORLD)) capeId = capeId.replaceAll("type", "light_green");
+		else if (worldKey.equals(World.NETHER)) capeId = capeId.replaceAll("type", "red");
+		else if (worldKey.equals(World.END)) capeId = capeId.replaceAll("type", "purple");
+		else capeId = capeId.replaceAll("type", "green");
+		return capeId;
+	}
 }
