@@ -1,4 +1,4 @@
-package ru.pinkgoosik.goosiklib.client;
+package ru.pinkgoosik.cosmetica.client;
 
 import net.fabricmc.fabric.api.client.model.ModelLoadingRegistry;
 import net.minecraft.client.util.ModelIdentifier;

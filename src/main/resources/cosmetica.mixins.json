@@ -1,7 +1,7 @@
 {
   "required": true,
   "minVersion": "0.8",
-  "package": "ru.pinkgoosik.goosiklib.mixin",
+  "package": "ru.pinkgoosik.cosmetica.mixin",
   "compatibilityLevel": "JAVA_16",
   "client": [
     "AbstractClientPlayerMixin",

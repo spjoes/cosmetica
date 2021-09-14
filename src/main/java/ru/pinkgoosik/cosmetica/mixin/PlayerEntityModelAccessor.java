@@ -1,4 +1,4 @@
-package ru.pinkgoosik.goosiklib.mixin;
+package ru.pinkgoosik.cosmetica.mixin;
 
 import net.minecraft.client.model.ModelPart;
 import net.minecraft.client.render.entity.model.PlayerEntityModel;

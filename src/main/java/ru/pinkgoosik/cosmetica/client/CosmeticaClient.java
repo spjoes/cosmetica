@@ -1,17 +1,16 @@
-package ru.pinkgoosik.goosiklib.client;
+package ru.pinkgoosik.cosmetica.client;
 
 import net.fabricmc.api.ClientModInitializer;
-import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.minecraft.client.render.entity.PlayerEntityRenderer;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import ru.pinkgoosik.goosiklib.client.render.CosmeticFeatureRenderer;
+import ru.pinkgoosik.cosmetica.client.render.CosmeticFeatureRenderer;
 import net.fabricmc.fabric.api.client.rendering.v1.LivingEntityFeatureRendererRegistrationCallback;
 
 import java.io.IOException;
 
-public class GoosikLibClient implements ClientModInitializer {
-	public static final Logger LOGGER = LogManager.getLogger("GoosikLib");
+public class CosmeticaClient implements ClientModInitializer {
+	public static final Logger LOGGER = LogManager.getLogger("Cosmetica");
 
 	private static PlayerCapes playerCapes;
 	private static PlayerCosmetics playerCosmetics;

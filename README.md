@@ -1,1 +1,1 @@
-# Goosik Lib idk
+# ~~Goosik Lib~~ Cosmetica

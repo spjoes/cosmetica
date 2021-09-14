@@ -1,4 +1,4 @@
-package ru.pinkgoosik.goosiklib.client;
+package ru.pinkgoosik.cosmetica.client;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonParser;

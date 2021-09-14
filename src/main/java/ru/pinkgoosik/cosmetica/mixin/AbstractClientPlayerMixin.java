@@ -1,4 +1,4 @@
-package ru.pinkgoosik.goosiklib.mixin;
+package ru.pinkgoosik.cosmetica.mixin;
 
 import com.mojang.authlib.GameProfile;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
@@ -12,8 +12,8 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import ru.pinkgoosik.goosiklib.client.GoosikLibClient;
-import ru.pinkgoosik.goosiklib.client.PlayerCapes;
+import ru.pinkgoosik.cosmetica.client.CosmeticaClient;
+import ru.pinkgoosik.cosmetica.client.PlayerCapes;
 
 import java.util.UUID;
 
@@ -26,18 +26,12 @@ public abstract class AbstractClientPlayerMixin extends PlayerEntity {
 
 	@Inject(method = "getCapeTexture", at = @At("HEAD"), cancellable = true)
 	void getCapeTexture(CallbackInfoReturnable<Identifier> cir) {
-		PlayerCapes capes = GoosikLibClient.getPlayerCapes();
-		String capeId = "goosiklib:textures/cape/type.png";
+		PlayerCapes capes = CosmeticaClient.getPlayerCapes();
+		String capeId = "cosmetica:textures/cape/type.png";
 
 		if (capes != null) {
 			capes.getEntries().forEach(entry -> {
-				if (!entry.playerUuid().equals("-") && this.getUuid().equals(UUID.fromString(entry.playerUuid()))) {
-					if (entry.cape().equals("uni")) {
-						cir.setReturnValue(new Identifier(getUniCapeType()));
-					} else if (capes.getAvailableCapes().contains(entry.cape())) {
-						cir.setReturnValue(new Identifier(capeId.replaceAll("type", entry.cape())));
-					}
-				} else if (this.getName().asString().equals(entry.playerName())) {
+				if (!entry.playerUuid().equals("-") && this.getUuid().equals(UUID.fromString(entry.playerUuid())) || this.getName().asString().equals(entry.playerName())) {
 					if (entry.cape().equals("uni")) {
 						cir.setReturnValue(new Identifier(getUniCapeType()));
 					} else if (capes.getAvailableCapes().contains(entry.cape())) {
@@ -50,7 +44,7 @@ public abstract class AbstractClientPlayerMixin extends PlayerEntity {
 
 	@Unique
 	private String getUniCapeType() {
-		String capeId = "goosiklib:textures/cape/type.png";
+		String capeId = "cosmetica:textures/cape/type.png";
 		RegistryKey<World> worldKey = this.world.getRegistryKey();
 		if (worldKey.equals(World.OVERWORLD)) capeId = capeId.replaceAll("type", "light_green");
 		else if (worldKey.equals(World.NETHER)) capeId = capeId.replaceAll("type", "red");

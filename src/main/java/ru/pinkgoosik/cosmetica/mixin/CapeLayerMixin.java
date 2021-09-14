@@ -1,4 +1,4 @@
-package ru.pinkgoosik.goosiklib.mixin;
+package ru.pinkgoosik.cosmetica.mixin;
 
 import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.client.render.OverlayTexture;
@@ -21,10 +21,10 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import ru.pinkgoosik.goosiklib.client.ColorUtil;
-import ru.pinkgoosik.goosiklib.client.DyeUtils;
-import ru.pinkgoosik.goosiklib.client.GoosikLibClient;
-import ru.pinkgoosik.goosiklib.client.PlayerCapes;
+import ru.pinkgoosik.cosmetica.client.util.ColorUtil;
+import ru.pinkgoosik.cosmetica.client.util.DyeUtils;
+import ru.pinkgoosik.cosmetica.client.CosmeticaClient;
+import ru.pinkgoosik.cosmetica.client.PlayerCapes;
 
 @Mixin(CapeFeatureRenderer.class)
 public abstract class CapeLayerMixin extends FeatureRenderer<AbstractClientPlayerEntity, PlayerEntityModel<AbstractClientPlayerEntity>> {
@@ -36,7 +36,7 @@ public abstract class CapeLayerMixin extends FeatureRenderer<AbstractClientPlaye
 	@Inject(method = "render", at = @At(value = "HEAD"), cancellable = true)
 	public void render(MatrixStack poseStack, VertexConsumerProvider vertexConsumerProvider, int light, AbstractClientPlayerEntity abstractClientPlayer, float limbAngle, float limbDistance, float tickDelta, float animationProgress, float headYaw, float headPitch, CallbackInfo info) {
 		if (abstractClientPlayer.canRenderCapeTexture() && !abstractClientPlayer.isInvisible() && abstractClientPlayer.isPartVisible(PlayerModelPart.CAPE) && abstractClientPlayer.getCapeTexture() != null) {
-			for (PlayerCapes.PlayerCapeEntry entry : GoosikLibClient.getPlayerCapes().getEntries()) {
+			for (PlayerCapes.PlayerCapeEntry entry : CosmeticaClient.getPlayerCapes().getEntries()) {
 				if (entry.playerUuid().equals(abstractClientPlayer.getGameProfile().getId().toString())) {
 					ItemStack itemStack = abstractClientPlayer.getEquippedStack(EquipmentSlot.CHEST);
 					if (!(itemStack.getItem() instanceof ElytraItem)) {
@@ -71,8 +71,8 @@ public abstract class CapeLayerMixin extends FeatureRenderer<AbstractClientPlaye
 						for (String type : entry.type().split("\\|")) {
 							if (type.equals("jeb")) {
 								float[] color = DyeUtils.createJebColorTransition(abstractClientPlayer, tickDelta);
-								this.getContextModel().renderCape(poseStack, ItemRenderer.getArmorGlintConsumer(vertexConsumerProvider, RenderLayer.getArmorCutoutNoCull(new Identifier("goosiklib:textures/cape/cape_layer1.png")), false, entry.type().contains("enchanted")), light, OverlayTexture.DEFAULT_UV);
-								((PlayerEntityModelAccessor) this.getContextModel()).getCloak().render(poseStack, ItemRenderer.getArmorGlintConsumer(vertexConsumerProvider, RenderLayer.getArmorCutoutNoCull(new Identifier("goosiklib:textures/cape/cape_layer2.png")), false, entry.type().contains("enchanted")), light, OverlayTexture.DEFAULT_UV, color[0], color[1], color[2], 1.0F);
+								this.getContextModel().renderCape(poseStack, ItemRenderer.getArmorGlintConsumer(vertexConsumerProvider, RenderLayer.getArmorCutoutNoCull(new Identifier("cosmetica:textures/cape/cape_layer1.png")), false, entry.type().contains("enchanted")), light, OverlayTexture.DEFAULT_UV);
+								((PlayerEntityModelAccessor) this.getContextModel()).getCloak().render(poseStack, ItemRenderer.getArmorGlintConsumer(vertexConsumerProvider, RenderLayer.getArmorCutoutNoCull(new Identifier("cosmetica:textures/cape/cape_layer2.png")), false, entry.type().contains("enchanted")), light, OverlayTexture.DEFAULT_UV, color[0], color[1], color[2], 1.0F);
 							}
 							if (type.equals("cosmic")) {
 								((PlayerEntityModelAccessor) this.getContextModel()).getCloak().render(poseStack, ItemRenderer.getArmorGlintConsumer(vertexConsumerProvider, RenderLayer.getEndGateway(), false, entry.type().contains("enchanted")), light, OverlayTexture.DEFAULT_UV);

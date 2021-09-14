@@ -1,4 +1,4 @@
-package ru.pinkgoosik.goosiklib.client;
+package ru.pinkgoosik.cosmetica.client.util;
 
 import com.google.common.collect.Maps;
 import net.minecraft.entity.LivingEntity;

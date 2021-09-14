@@ -1,22 +1,27 @@
 {
   "schemaVersion": 1,
-  "id": "goosiklib",
+  "id": "cosmetica",
   "version": "${version}",
-  "name": "Goosik Lib",
-  "description": "Lib for my mods.",
-  "authors": ["PinkGoosik"],
+  "name": "Cosmetica",
+  "description": "todo description",
+  "authors": [
+    "PinkGoosik",
+    "OliviaTheVampire"
+  ],
   "contact": {
-    "homepage": "https://github.com/PinkGoosik/artifality",
-    "sources": "https://github.com/PinkGoosik/artifality",
-    "issues": "https://github.com/PinkGoosik/artifality/issues"
+    "homepage": "https://github.com/PinkGoosik/cosmetica",
+    "sources": "https://github.com/PinkGoosik/cosmetica",
+    "issues": "https://github.com/PinkGoosik/cosmetica/issues"
   },
   "license": "MIT",
-  "icon": "assets/goosiklib/icon.png",
+  "icon": "assets/cosmetica/icon.png",
   "environment": "client",
   "entrypoints": {
-    "client": ["ru.pinkgoosik.goosiklib.client.GoosikLibClient"]
+    "client": ["ru.pinkgoosik.cosmetica.client.CosmeticaClient"]
   },
-  "mixins": ["goosiklib.mixins.json"],
+  "mixins": [
+    "cosmetica.mixins.json"
+  ],
   "custom": {
     "modmenu": {
       "badges": ["library"]
