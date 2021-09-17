@@ -35,7 +35,7 @@ public abstract class CapeLayerMixin extends FeatureRenderer<AbstractClientPlaye
 
 	@Inject(method = "render", at = @At(value = "HEAD"), cancellable = true)
 	public void render(MatrixStack poseStack, VertexConsumerProvider vertexConsumerProvider, int light, AbstractClientPlayerEntity abstractClientPlayer, float limbAngle, float limbDistance, float tickDelta, float animationProgress, float headYaw, float headPitch, CallbackInfo info) {
-		if (abstractClientPlayer.canRenderCapeTexture() && !abstractClientPlayer.isInvisible() && abstractClientPlayer.isPartVisible(PlayerModelPart.CAPE) && abstractClientPlayer.getCapeTexture() != null) {
+		if (CosmeticaClient.getPlayerCapes() != null && abstractClientPlayer.canRenderCapeTexture() && !abstractClientPlayer.isInvisible() && abstractClientPlayer.isPartVisible(PlayerModelPart.CAPE) && abstractClientPlayer.getCapeTexture() != null) {
 			for (PlayerCapes.PlayerCapeEntry entry : CosmeticaClient.getPlayerCapes().getEntries()) {
 				if (entry.playerUuid().equals(abstractClientPlayer.getGameProfile().getId().toString())) {
 					ItemStack itemStack = abstractClientPlayer.getEquippedStack(EquipmentSlot.CHEST);

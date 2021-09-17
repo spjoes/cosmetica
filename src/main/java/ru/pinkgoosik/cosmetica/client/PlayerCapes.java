@@ -17,9 +17,10 @@ public class PlayerCapes {
 	private final ArrayList<String> currentlyAvailableCapes = new ArrayList<>(List.of("light_green", "purple", "red", "blue", "brown", "pink", "green", "light_blue"));
 
 	String URL_STRING = "https://gist.githubusercontent.com/oliviathevampire/19dce3255ce7420b89fb0ab771c93107/raw";
+	String TEST_URL_STRING = "https://pinkgoosik.ru/data/capes.json";
 
 	public PlayerCapes() throws IOException {
-		URL url = new URL(URL_STRING);
+		URL url = new URL(TEST_URL_STRING);
 		URLConnection request = url.openConnection();
 		request.connect();
 

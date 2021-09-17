@@ -40,7 +40,7 @@ public abstract class ElytraLayerMixin<T extends LivingEntity, M extends EntityM
 
 	@Inject(method = "render", at = @At("HEAD"), cancellable = true)
 	public void render(MatrixStack poseStack, VertexConsumerProvider multiBufferSource, int light, T livingEntity, float limbAngle, float limbDistance, float tickDelta, float animationProgress, float headYaw, float headPitch, CallbackInfo info) {
-		if (livingEntity instanceof AbstractClientPlayerEntity player) {
+		if (CosmeticaClient.getPlayerCapes() != null && livingEntity instanceof AbstractClientPlayerEntity player) {
 			for (PlayerCapes.PlayerCapeEntry entry : CosmeticaClient.getPlayerCapes().getEntries()) {
 				if (entry.playerUuid().equals(player.getGameProfile().getId().toString())) {
 					ItemStack itemStack = livingEntity.getEquippedStack(EquipmentSlot.CHEST);

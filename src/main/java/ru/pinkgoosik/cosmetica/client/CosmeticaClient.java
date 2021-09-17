@@ -1,6 +1,7 @@
 package ru.pinkgoosik.cosmetica.client;
 
 import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.minecraft.client.render.entity.PlayerEntityRenderer;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -17,8 +18,8 @@ public class CosmeticaClient implements ClientModInitializer {
 
 	@Override
 	public void onInitializeClient() {
-		initPlayerCapes();
-		initPlayerCosmetics();
+		ClientTickEvents.END_CLIENT_TICK.register(new LoadCosmeticsEvent());
+
 		LivingEntityFeatureRendererRegistrationCallback.EVENT.register((entityType, entityRenderer, registrationHelper, context) -> {
 			if(entityRenderer instanceof PlayerEntityRenderer playerEntityRenderer){
 				registrationHelper.register(new CosmeticFeatureRenderer(playerEntityRenderer));
