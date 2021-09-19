@@ -28,8 +28,8 @@ public class PlayerCosmetics {
                 .setPlayerName(jsonElement.getAsJsonObject().get("name").getAsString())
                 .setPlayerUuid(jsonElement.getAsJsonObject().get("uuid").getAsString())
                 .setCosmetic(jsonElement.getAsJsonObject().get("cosmetic").getAsString())
-                .setPlacement(jsonElement.getAsJsonObject().get("placement").getAsString());
-                //.setPlayerIsDinnerBoned(jsonElement.getAsJsonObject().get("playerDinnerBoned").getAsString());
+                .setPlacement(jsonElement.getAsJsonObject().get("placement").getAsString())
+                .setPlayerIsDinnerBoned(jsonElement.getAsJsonObject().get("playerDinnerBoned").getAsString());
 
             entries.add(entry.build());
         });
