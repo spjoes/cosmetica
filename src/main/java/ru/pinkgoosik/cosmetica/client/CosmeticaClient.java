@@ -41,6 +41,7 @@ public class CosmeticaClient implements ClientModInitializer {
 
 	public static void initPlayerCapes() {
 		LOGGER.info("Loading Player Capes...");
+		//System.out.println(CosmeticaClient.getPlayerCosmetics().getEntries());
 		try {
 			playerCapes = new PlayerCapes();
 		} catch (IOException e) {

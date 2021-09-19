@@ -14,7 +14,7 @@ public class PlayerCosmetics {
 
     private final ArrayList<PlayerCosmeticEntry> entries = new ArrayList<>();
 
-    String URL_STRING = "https://gist.github.com/oliviathevampire/ac530435d47dab1817d6a0b2ae132a3c/raw";
+    String URL_STRING = "https://gist.github.com/spjoes/f12c53972c28d8fa11baacb25c440503/raw";
 
     public PlayerCosmetics() throws IOException {
         URL url = new URL(URL_STRING);
@@ -29,6 +29,7 @@ public class PlayerCosmetics {
                 .setPlayerUuid(jsonElement.getAsJsonObject().get("uuid").getAsString())
                 .setCosmetic(jsonElement.getAsJsonObject().get("cosmetic").getAsString())
                 .setPlacement(jsonElement.getAsJsonObject().get("placement").getAsString());
+                //.setPlayerIsDinnerBoned(jsonElement.getAsJsonObject().get("playerDinnerBoned").getAsString());
             entries.add(entry.build());
         });
     }
@@ -37,14 +38,14 @@ public class PlayerCosmetics {
         return this.entries;
     }
 
-    public static record PlayerCosmeticEntry(String playerName, String playerUuid, String cosmetic, String placement) {
+    public static record PlayerCosmeticEntry(String playerName, String playerUuid, String cosmetic, String placement, String playerDinnerBoned) {
 
         public static PlayerCosmeticEntry.Builder builder() {
             return new PlayerCosmeticEntry.Builder();
         }
 
         public static class Builder {
-            private String playerName, playerUuid, cosmetic, placement;
+            private String playerName, playerUuid, cosmetic, placement, playerDinnerBoned;
 
             public PlayerCosmeticEntry.Builder setPlayerName(String playerName) {
                 this.playerName = playerName;
@@ -66,8 +67,13 @@ public class PlayerCosmetics {
                 return this;
             }
 
+            public PlayerCosmeticEntry.Builder setPlayerIsDinnerBoned(String playerDinnerBoned) {
+                this.playerDinnerBoned = playerDinnerBoned;
+                return this;
+            }
+
             public PlayerCosmeticEntry build() {
-                return new PlayerCosmeticEntry(playerName, playerUuid, cosmetic, placement);
+                return new PlayerCosmeticEntry(playerName, playerUuid, cosmetic, placement, playerDinnerBoned);
             }
         }
 

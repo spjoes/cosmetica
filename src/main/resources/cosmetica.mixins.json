@@ -7,7 +7,8 @@
     "AbstractClientPlayerMixin",
     "CapeLayerMixin",
     "ElytraLayerMixin",
-    "PlayerEntityModelAccessor"
+    "PlayerEntityModelAccessor",
+    "LivingEntityRendererMixin"
   ],
   "injectors": {
     "defaultRequire": 1
