@@ -30,6 +30,7 @@ public class PlayerCosmetics {
                 .setCosmetic(jsonElement.getAsJsonObject().get("cosmetic").getAsString())
                 .setPlacement(jsonElement.getAsJsonObject().get("placement").getAsString());
                 //.setPlayerIsDinnerBoned(jsonElement.getAsJsonObject().get("playerDinnerBoned").getAsString());
+
             entries.add(entry.build());
         });
     }
