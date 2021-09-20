@@ -8,7 +8,8 @@
     "CapeLayerMixin",
     "ElytraLayerMixin",
     "PlayerEntityModelAccessor",
-    "LivingEntityRendererMixin"
+    "LivingEntityRendererMixin",
+    "TitleScreenMixin"
   ],
   "injectors": {
     "defaultRequire": 1

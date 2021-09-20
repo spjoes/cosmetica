@@ -13,7 +13,8 @@ group = project.maven_group
 repositories {
     maven { url "https://maven.gegy.dev" } //databreaker
 	maven { url "https://maven.terraformersmc.com" } //modmenu
-	maven { url 'https://jitpack.io' } //jitpack
+	maven { url "https://jitpack.io" } //jitpack
+	maven { url "https://maven.gegy.dev" } //Gegy
 }
 
 dependencies {
@@ -26,6 +27,7 @@ dependencies {
 	modImplementation "net.fabricmc.fabric-api:fabric-lifecycle-events-v1:1.4.4+a02b4463d5"
 	modImplementation "net.fabricmc.fabric-api:fabric-renderer-registries-v1:3.2.3+f0bdcfa46e"
 	modImplementation "net.fabricmc.fabric-api:fabric-models-v0:0.3.0+f74f7c7d7d"
+	modImplementation include("dev.lambdaurora:spruceui:${project.spruceui_version}")
 	//modImplementation fileTree(include: ['*.jar'], dir: 'libs')
 
 	modRuntime "com.terraformersmc:modmenu:2.0.9"
