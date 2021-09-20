@@ -41,13 +41,23 @@ public class LivingEntityRendererMixin {
     @Inject(method = "setupTransforms", at = @At(value = "TAIL"))
     private void dinnerboneEntities(LivingEntity entity, MatrixStack matrices, float _animationProgress, float _bodyYaw, float _tickDelta, CallbackInfo _info) {
         String string = Formatting.strip(entity.getName().getString());
-
-
-                // Selected User (2/3)                          is the user logged in.
-            if ((playerCosmetics.getEntries().get(2).playerName().equals(string)) && !(entity instanceof PlayerEntity) || ((PlayerEntity) entity).isPartVisible(PlayerModelPart.CAPE)) {
-                    System.out.println("true");
-                    matrices.translate(0.0D, entity.getHeight() + 0.1F, 0.0D);
-                    matrices.multiply(Vec3f.POSITIVE_Z.getDegreesQuaternion(180.0F));
-                }
+        //System.out.println(playerCosmetics.getEntries().get(2).playerName().toString());
+//        if (CosmeticaClient.getPlayerCosmetics().getEntries().get(3).playerDinnerBoned().equals("true")) {
+//            if(!(entity instanceof PlayerEntity)) {
+//                System.out.println("true");
+//                matrices.translate(0.0D, entity.getHeight() + 0.1F, 0.0D);
+//                matrices.multiply(Vec3f.POSITIVE_Z.getDegreesQuaternion(180.0F));
+//            } if(!(entity instanceof MobEntity)) {
+//                matrices.translate(0.0D, entity.getHeight() + 0.1F, 0.0D);
+//                matrices.multiply(Vec3f.POSITIVE_Z.getDegreesQuaternion(0F));
+//            }
+//        } else {
+                // Selected User (2/3)                           is the user logged in.    Then be upsidedown
+            if ((playerCosmetics.getEntries().get(2).playerName().equals(string)) && (!(entity instanceof PlayerEntity) || ((PlayerEntity) entity).isPartVisible(PlayerModelPart.CAPE))) {
+                System.out.println("false");
+                matrices.translate(0.0D, entity.getHeight() + 0.1F, 0.0D);
+                matrices.multiply(Vec3f.POSITIVE_Z.getDegreesQuaternion(180.0F));
             }
+        //}
     }
+}
