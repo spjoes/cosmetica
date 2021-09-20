@@ -33,6 +33,8 @@ import java.io.IOException;
 @Mixin(LivingEntityRenderer.class)
 public class LivingEntityRendererMixin {
 
+    int SelectedUser = 2;
+
     PlayerCosmetics playerCosmetics = new PlayerCosmetics();
 
     public LivingEntityRendererMixin() throws IOException {
@@ -41,23 +43,17 @@ public class LivingEntityRendererMixin {
     @Inject(method = "setupTransforms", at = @At(value = "TAIL"))
     private void dinnerboneEntities(LivingEntity entity, MatrixStack matrices, float _animationProgress, float _bodyYaw, float _tickDelta, CallbackInfo _info) {
         String string = Formatting.strip(entity.getName().getString());
-        //System.out.println(playerCosmetics.getEntries().get(2).playerName().toString());
-//        if (CosmeticaClient.getPlayerCosmetics().getEntries().get(3).playerDinnerBoned().equals("true")) {
-//            if(!(entity instanceof PlayerEntity)) {
-//                System.out.println("true");
-//                matrices.translate(0.0D, entity.getHeight() + 0.1F, 0.0D);
-//                matrices.multiply(Vec3f.POSITIVE_Z.getDegreesQuaternion(180.0F));
-//            } if(!(entity instanceof MobEntity)) {
-//                matrices.translate(0.0D, entity.getHeight() + 0.1F, 0.0D);
-//                matrices.multiply(Vec3f.POSITIVE_Z.getDegreesQuaternion(0F));
-//            }
-//        } else {
+        //System.out.println(playerCosmetics.getEntries().get(SelectedUser).playerName().toString());
+        //System.out.println(playerCosmetics.getEntries().get(SelectedUser).playerDinnerBoned().toString());
+
                 // Selected User (2/3)                           is the user logged in.    Then be upsidedown
-            if ((playerCosmetics.getEntries().get(2).playerName().equals(string)) && (!(entity instanceof PlayerEntity) || ((PlayerEntity) entity).isPartVisible(PlayerModelPart.CAPE))) {
-                System.out.println("false");
-                matrices.translate(0.0D, entity.getHeight() + 0.1F, 0.0D);
-                matrices.multiply(Vec3f.POSITIVE_Z.getDegreesQuaternion(180.0F));
+            if ((playerCosmetics.getEntries().get(SelectedUser).playerName().equals(string)) && (!(entity instanceof PlayerEntity) || ((PlayerEntity) entity).isPartVisible(PlayerModelPart.CAPE))) {
+                if (playerCosmetics.getEntries().get(SelectedUser).playerDinnerBoned().toString().equals("false")) {
+                    matrices.multiply(Vec3f.POSITIVE_Z.getDegreesQuaternion(0.0F));
+                } else if (playerCosmetics.getEntries().get(2).playerDinnerBoned().toString().equals("true")){
+                    matrices.translate(0.0D, entity.getHeight() + 0.1F, 0.0D);
+                    matrices.multiply(Vec3f.POSITIVE_Z.getDegreesQuaternion(180.0F));
+                }
             }
-        //}
     }
 }
