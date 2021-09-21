@@ -13,20 +13,15 @@ import ru.pinkgoosik.cosmetica.client.screens.*;
 
 @Mixin(TitleScreen.class)
 public abstract class TitleScreenMixin extends Screen {
-
     protected TitleScreenMixin(Text text) {
         super(text);
     }
-
     @Inject(at = @At("RETURN"), method = "initWidgetsNormal")
     private void addCustomButton(int y, int spacingY, CallbackInfo ci) {
         if(FabricLoader.getInstance().isDevelopmentEnvironment()) {
             this.addDrawableChild(new ButtonWidget(this.width / 2 - 100 + 205, y, 50, 20, new LiteralText("Customize"), (button) -> {
                 MinecraftClient.getInstance().setScreen(new CustomizeScreen(this));
             }));
-        } else if(!FabricLoader.getInstance().isDevelopmentEnvironment()) {
-
-        }
+        } else if(!FabricLoader.getInstance().isDevelopmentEnvironment()) { }
     }
-
 }

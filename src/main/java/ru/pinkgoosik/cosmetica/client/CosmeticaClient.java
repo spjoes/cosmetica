@@ -59,5 +59,4 @@ public class CosmeticaClient implements ClientModInitializer {
 	public static PlayerCosmetics getPlayerCosmetics() {
 		return playerCosmetics;
 	}
-
 }

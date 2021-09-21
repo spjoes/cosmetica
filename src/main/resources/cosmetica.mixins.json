@@ -9,7 +9,8 @@
     "ElytraLayerMixin",
     "PlayerEntityModelAccessor",
     "LivingEntityRendererMixin",
-    "TitleScreenMixin"
+    "TitleScreenMixin",
+    "DebugHudMixin"
   ],
   "injectors": {
     "defaultRequire": 1
