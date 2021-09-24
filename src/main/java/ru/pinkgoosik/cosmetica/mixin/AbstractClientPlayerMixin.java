@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import ru.pinkgoosik.cosmetica.client.CosmeticaClient;
-import ru.pinkgoosik.cosmetica.client.PlayerCapes;
+import ru.pinkgoosik.cosmetica.client.PlayerEntries;
 
 import java.util.UUID;
 
@@ -26,30 +26,35 @@ public abstract class AbstractClientPlayerMixin extends PlayerEntity {
 
 	@Inject(method = "getCapeTexture", at = @At("HEAD"), cancellable = true)
 	void getCapeTexture(CallbackInfoReturnable<Identifier> cir) {
-		PlayerCapes capes = CosmeticaClient.getPlayerCapes();
-		String capeId = "cosmetica:textures/cape/type.png";
+		PlayerEntries playerEntries = CosmeticaClient.getPlayerEntries();
+		String capeId = "cosmetica:textures/cloak/type.png";
 
-		if (capes != null) {
-			capes.getEntries().forEach(entry -> {
-				if (!entry.playerUuid().equals("-") && this.getUuid().equals(UUID.fromString(entry.playerUuid())) || this.getName().asString().equals(entry.playerName())) {
-					if (entry.cape().equals("uni")) {
-						cir.setReturnValue(new Identifier(getUniCapeType()));
-					} else if (capes.getAvailableCapes().contains(entry.cape())) {
-						cir.setReturnValue(new Identifier(capeId.replaceAll("type", entry.cape())));
+		if (CosmeticaClient.getPlayerEntries().entries() != null) {
+			for (PlayerEntries.Entry.Entries entries : CosmeticaClient.getPlayerEntries().entries().entries) {
+				UUID actualUUID = UUID.fromString(entries.playerInformation.uuid);
+				if (entries.cloakInformation != null && (this.getUuid().equals(actualUUID) || this.getName().asString().equals(entries.playerInformation.name))) {
+					if (entries.cloakInformation.type.equals("per_dimension")) {
+						cir.setReturnValue(new Identifier(getPerDimensionCape()));
+					} else {
+						for (String color : playerEntries.availabilities().cloaks.colors) {
+							if (color.equals(entries.cloakInformation.cloakColor)) {
+								cir.setReturnValue(new Identifier(capeId.replaceAll("type", entries.cloakInformation.cloakColor)));
+							}
+						}
 					}
 				}
-			});
+			}
 		}
 	}
 
 	@Unique
-	private String getUniCapeType() {
-		String capeId = "cosmetica:textures/cape/type.png";
+	private String getPerDimensionCape() {
+		String capeId = "cosmetica:textures/cloak/type.png";
 		RegistryKey<World> worldKey = this.world.getRegistryKey();
-		if (worldKey.equals(World.OVERWORLD)) capeId = capeId.replaceAll("type", "light_green");
-		else if (worldKey.equals(World.NETHER)) capeId = capeId.replaceAll("type", "red");
-		else if (worldKey.equals(World.END)) capeId = capeId.replaceAll("type", "purple");
-		else capeId = capeId.replaceAll("type", "green");
+		if (worldKey.equals(World.OVERWORLD)) capeId = capeId.replaceAll("type", "turtle");
+		else if (worldKey.equals(World.NETHER)) capeId = capeId.replaceAll("type", "crimson");
+		else if (worldKey.equals(World.END)) capeId = capeId.replaceAll("type", "mystical");
+		else capeId = capeId.replaceAll("type", "turtle");
 		return capeId;
 	}
 }
