@@ -28,8 +28,7 @@ public class PlayerCosmetics {
                 .setPlayerName(jsonElement.getAsJsonObject().get("name").getAsString())
                 .setPlayerUuid(jsonElement.getAsJsonObject().get("uuid").getAsString())
                 .setCosmetic(jsonElement.getAsJsonObject().get("cosmetic").getAsString())
-                .setPlacement(jsonElement.getAsJsonObject().get("placement").getAsString())
-                .setPlayerIsDinnerBoned(jsonElement.getAsJsonObject().get("playerDinnerBoned").getAsString());
+                .setPlacement(jsonElement.getAsJsonObject().get("placement").getAsString());
 
             entries.add(entry.build());
         });
@@ -39,14 +38,14 @@ public class PlayerCosmetics {
         return this.entries;
     }
 
-    public static record PlayerCosmeticEntry(String playerName, String playerUuid, String cosmetic, String placement, String playerDinnerBoned) {
+    public static record PlayerCosmeticEntry(String playerName, String playerUuid, String cosmetic, String placement) {
 
         public static PlayerCosmeticEntry.Builder builder() {
             return new PlayerCosmeticEntry.Builder();
         }
 
         public static class Builder {
-            private String playerName, playerUuid, cosmetic, placement, playerDinnerBoned;
+            private String playerName, playerUuid, cosmetic, placement;
 
             public PlayerCosmeticEntry.Builder setPlayerName(String playerName) {
                 this.playerName = playerName;
@@ -68,13 +67,8 @@ public class PlayerCosmetics {
                 return this;
             }
 
-            public PlayerCosmeticEntry.Builder setPlayerIsDinnerBoned(String playerDinnerBoned) {
-                this.playerDinnerBoned = playerDinnerBoned;
-                return this;
-            }
-
             public PlayerCosmeticEntry build() {
-                return new PlayerCosmeticEntry(playerName, playerUuid, cosmetic, placement, playerDinnerBoned);
+                return new PlayerCosmeticEntry(playerName, playerUuid, cosmetic, placement);
             }
         }
 

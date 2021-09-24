@@ -2,10 +2,8 @@ package ru.pinkgoosik.cosmetica.client.render;
 
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
-import net.minecraft.client.render.OverlayTexture;
-import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.render.entity.feature.FeatureRenderer;
-import net.minecraft.client.render.entity.feature.FeatureRendererContext;
+import net.minecraft.client.render.*;
+import net.minecraft.client.render.entity.feature.*;
 import net.minecraft.client.render.entity.model.PlayerEntityModel;
 import net.minecraft.client.render.item.ItemRenderer;
 import net.minecraft.client.render.model.json.ModelTransformation;
