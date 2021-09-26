@@ -1,6 +1,5 @@
 package ru.pinkgoosik.cosmetica.client;
 
-import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.google.gson.annotations.SerializedName;
 
@@ -9,9 +8,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
-import java.util.ArrayList;
-import java.util.Map;
-import java.util.Scanner;
 
 public class PlayerEntries {
 
@@ -19,7 +15,7 @@ public class PlayerEntries {
 	private final Availabilities availabilities;
 
 	public PlayerEntries() throws IOException {
-		URL url = new URL("https://gist.githubusercontent.com/oliviathevampire/9e1302db893337b84b081bf1dee6b9aa/raw");
+		URL url = new URL("https://gist.githubusercontent.com/spjoes/f12c53972c28d8fa11baacb25c440503/raw");
 		URLConnection request = url.openConnection();
 		request.connect();
 		entries = CosmeticaClient.GSON.fromJson(new JsonParser().parse(new InputStreamReader((InputStream)
@@ -56,7 +52,7 @@ public class PlayerEntries {
 		public static class Entries {
 			@SerializedName("player_information")
 			public PlayerInformation playerInformation;
-			public String attributes = "";
+			public String attributes = "normal";
 			@SerializedName("cloak_information")
 			public CloakInformation cloakInformation;
 			@SerializedName("cosmetic_information")
